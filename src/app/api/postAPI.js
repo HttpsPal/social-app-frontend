@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-	baseURL: "http://localhost:8080",
+	baseUrl: "http://localhost:8080/",
 	prepareHeaders: (headers, { getState }) => {
 		const token = getState().auth.token;
 		if (token) {
@@ -11,28 +11,25 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
-const postAPI = createApi({
+const postApi = createApi({
 	baseQuery: baseQuery,
 	endpoints: (builder) => ({
 		getAllPosts: builder.query({
 			query: () => `/`,
 		}),
+
 		createPost: builder.mutation({
 			query: ({ message }) => ({
 				url: `/`,
 				method: "POST",
-				body: {
-					message: message,
-				},
+				body: { message: message },
 			}),
 		}),
 		editPost: builder.mutation({
 			query: ({ id, message }) => ({
 				url: `/${id}`,
-				method: "PATCH",
-				body: {
-					message: message,
-				},
+				method: "PUT",
+				body: { message: message },
 			}),
 		}),
 		deletePost: builder.mutation({
@@ -49,6 +46,6 @@ export const {
 	useCreatePostMutation,
 	useEditPostMutation,
 	useDeletePostMutation,
-} = postAPI;
+} = postApi;
 
-export default postAPI;
+export default postApi;

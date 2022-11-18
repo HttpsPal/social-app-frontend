@@ -10,5 +10,7 @@ export default configureStore({
 		[postAPI.reducerPath]: postAPI.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(authAPI.middleware),
+		getDefaultMiddleware()
+			.concat(authAPI.middleware)
+			.concat(postAPI.middleware),
 });
